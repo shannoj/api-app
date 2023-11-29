@@ -3,25 +3,26 @@ import axios from "axios";
 
 function App() {
   const CLIENT_ID = "+++++++++++++++++++++++++++++";
-  const REDIRECT_URI = "http://localhost:3000";
+  const REDIRECT_URI = "http://localhost:5173/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
-  const [token, setToken] = useState<string>("");
+  const [token, setToken] = useState<string | null>("");
 
   const [searchKey, setSearchKey] = useState("");
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
-    const hash = window.location.hash;
+    const hash = window.location ? window.location.hash : "";
     let token = window.localStorage.getItem("token");
 
     if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
+      token =
+        hash
+          .substring(1)
+          .split("&")
+          .find((elem) => elem.startsWith("access_token"))
+          ?.split("=")[1] ?? "";
 
       window.location.hash = "";
       window.localStorage.setItem("token", token);
@@ -35,7 +36,7 @@ function App() {
     window.localStorage.removeItem("token");
   };
 
-  const searchArtists = async (e) => {
+  const searchArtists = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { data } = await axios.get("https://api.spotify.com/v1/search", {
       headers: {
