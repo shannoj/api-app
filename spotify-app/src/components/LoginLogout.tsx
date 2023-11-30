@@ -1,3 +1,6 @@
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+
 interface LoginLogoutProps {
   token: string | null;
   AUTH_ENDPOINT: string;
@@ -18,13 +21,13 @@ const LoginLogout = ({
   return (
     <>
       {!token ? (
-        <a
+        <Link
           href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
         >
           Login to Spotify
-        </a>
+        </Link>
       ) : (
-        <button onClick={logout}>Logout</button>
+        <Button onClick={logout}>Logout</Button>
       )}
     </>
   );

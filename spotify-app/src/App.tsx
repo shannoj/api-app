@@ -3,6 +3,7 @@ import axios from "axios";
 import RenderArtists from "./components/RenderArtists";
 import SearchForm from "./components/SearchForm";
 import LoginLogout from "./components/LoginLogout";
+import AppBar from "@mui/material/AppBar";
 
 function App() {
   const CLIENT_ID = "df46d308b60c4450b79230ccbba9d779";
@@ -34,7 +35,9 @@ function App() {
     setToken(token);
   }, []);
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setSearchKey(e.target.value);
   };
 
@@ -54,7 +57,7 @@ function App() {
         type: "artist",
       },
     });
-
+    console.log(data);
     setArtists(data.artists.items);
   };
 
@@ -62,18 +65,28 @@ function App() {
     <>
       <div className="App">
         <header className="App-header"></header>
-        <LoginLogout
-          token={token}
-          CLIENT_ID={CLIENT_ID}
-          AUTH_ENDPOINT={AUTH_ENDPOINT}
-          REDIRECT_URI={REDIRECT_URI}
-          RESPONSE_TYPE={RESPONSE_TYPE}
-          logout={logout}
-        ></LoginLogout>
-        <SearchForm
-          setSearchKey={handleSearch}
-          searchArtists={searchArtists}
-        ></SearchForm>
+        <AppBar
+          position="static"
+          color="secondary"
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+          }}
+        >
+          <SearchForm
+            setSearchKey={handleSearch}
+            searchArtists={searchArtists}
+          ></SearchForm>
+          <LoginLogout
+            token={token}
+            CLIENT_ID={CLIENT_ID}
+            AUTH_ENDPOINT={AUTH_ENDPOINT}
+            REDIRECT_URI={REDIRECT_URI}
+            RESPONSE_TYPE={RESPONSE_TYPE}
+            logout={logout}
+          ></LoginLogout>
+        </AppBar>
         <RenderArtists artists={artists}></RenderArtists>
       </div>
     </>
