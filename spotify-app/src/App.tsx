@@ -2,6 +2,7 @@ import { useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
 import RenderArtists from "./components/RenderArtists";
 import SearchForm from "./components/SearchForm";
+import LoginLogout from "./components/LoginLogout";
 
 function App() {
   const CLIENT_ID = "df46d308b60c4450b79230ccbba9d779";
@@ -61,15 +62,14 @@ function App() {
     <>
       <div className="App">
         <header className="App-header"></header>
-        {!token ? (
-          <a
-            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-          >
-            Login to Spotify
-          </a>
-        ) : (
-          <button onClick={logout}>Logout</button>
-        )}
+        <LoginLogout
+          token={token}
+          CLIENT_ID={CLIENT_ID}
+          AUTH_ENDPOINT={AUTH_ENDPOINT}
+          REDIRECT_URI={REDIRECT_URI}
+          RESPONSE_TYPE={RESPONSE_TYPE}
+          logout={logout}
+        ></LoginLogout>
         <SearchForm
           setSearchKey={handleSearch}
           searchArtists={searchArtists}
