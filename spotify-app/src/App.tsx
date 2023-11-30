@@ -35,10 +35,20 @@ function App() {
     setToken(token);
   }, []);
 
-  const handleSearch = (
+  const handleSearch = async (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setSearchKey(e.target.value);
+    const { data } = await axios.get("https://api.spotify.com/v1/search", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        q: searchKey,
+        type: "artist",
+      },
+    });
+    setArtists(data.artists.items);
   };
 
   const logout = () => {
