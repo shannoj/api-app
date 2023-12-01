@@ -1,5 +1,6 @@
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import { Typography } from "@mui/material";
 
 interface LoginLogoutProps {
   token: string | null;
@@ -24,10 +25,12 @@ const LoginLogout = ({
         <Link
           href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
         >
-          Login to Spotify
+          <Typography>Login to Spotify</Typography>
         </Link>
       ) : (
-        <Button onClick={logout}>Logout</Button>
+        <Button onClick={logout}>
+          <Typography>Logout</Typography>
+        </Button>
       )}
     </>
   );

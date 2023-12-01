@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent } from "react";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
+import { Typography } from "@mui/material";
 
 interface SearchFormProps {
   setSearchKey: (
@@ -14,7 +15,9 @@ const SearchForm = ({ setSearchKey, searchArtists }: SearchFormProps) => {
     <>
       <form onSubmit={searchArtists}>
         <Input type="text" onChange={(e) => setSearchKey(e)} />
-        <Button type={"submit"}>Search</Button>
+        <Button type={"submit"}>
+          <Typography>Search</Typography>
+        </Button>
       </form>
     </>
   );

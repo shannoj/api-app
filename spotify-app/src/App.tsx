@@ -7,6 +7,7 @@ import AppBar from "@mui/material/AppBar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
+import { Toolbar, Typography } from "@mui/material";
 
 interface Artist {
   // Define the structure of the artist object based on the Spotify API response
@@ -102,32 +103,42 @@ function App() {
     <>
       <div className="App">
         <header className="App-header"></header>
-        <AppBar
-          position="static"
-          color="secondary"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar
+            position="static"
+            color="secondary"
+            sx={{
+            backgroundColor: "#4CAF50",
           }}
-        >
-          {!token ? (
-            <div>Please Login</div>
-          ) : (
-            <SearchForm
-              setSearchKey={handleSearch}
-              searchArtists={searchArtists}
-            ></SearchForm>
-          )}
-          <LoginLogout
-            token={token}
-            CLIENT_ID={CLIENT_ID}
-            AUTH_ENDPOINT={AUTH_ENDPOINT}
-            REDIRECT_URI={REDIRECT_URI}
-            RESPONSE_TYPE={RESPONSE_TYPE}
-            logout={logout}
-          ></LoginLogout>
-        </AppBar>
+          >
+            <Toolbar>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+              >
+                Search Spotify Artists App
+              </Typography>
+              {!token ? (
+                <Typography>Please Login</Typography>
+              ) : (
+                <SearchForm
+                  setSearchKey={handleSearch}
+                  searchArtists={searchArtists}
+                ></SearchForm>
+              )}
+              <LoginLogout
+                token={token}
+                CLIENT_ID={CLIENT_ID}
+                AUTH_ENDPOINT={AUTH_ENDPOINT}
+                REDIRECT_URI={REDIRECT_URI}
+                RESPONSE_TYPE={RESPONSE_TYPE}
+                logout={logout}
+              ></LoginLogout>
+            </Toolbar>
+          </AppBar>
+        </Box>
         {loading ? (
           <Box sx={{ display: "flex" }}>
             <CircularProgress />
