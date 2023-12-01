@@ -17,6 +17,11 @@ interface renderArtistProps {
 }
 
 const RenderArtists = ({ artists }: renderArtistProps) => {
+
+  function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
   return (
     <Grid container spacing={2}>
       {artists.map((artist: Artist) => (
@@ -41,7 +46,7 @@ const RenderArtists = ({ artists }: renderArtistProps) => {
             >
               {artist.genres.map((genre, index) => (
                 <Typography key={index} sx={{}}>
-                  {genre}
+                  {capitalizeFirstLetter(genre)}
                   {(index+1) !== (artist.genres.length) && ","}
                   &nbsp;
                 </Typography>
