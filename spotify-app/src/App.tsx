@@ -46,7 +46,7 @@ function App() {
   const handleSearch = async (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    let search = e.target.value;
+    let search = e.target.value.toLowerCase();
     setSearchKey(search);
     const { data } = await axios.get("https://api.spotify.com/v1/search", {
       headers: {
@@ -57,10 +57,9 @@ function App() {
         type: "artist",
       },
     });
-    console.log(data.artists.items);
 
     const filteredResults = data.artists.items.filter((result: Artist) =>
-      result.name.startsWith(search)
+      result.name.toLowerCase().startsWith(search)
     );
 
     setArtists(filteredResults);
