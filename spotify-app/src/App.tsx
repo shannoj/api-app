@@ -69,6 +69,7 @@ function App() {
         result.name.toLowerCase().startsWith(search)
       );
       setArtists(filteredResults);
+      console.log(filteredResults);
       setLoading(false);
       setError("");
     } catch (error) {
@@ -109,12 +110,15 @@ function App() {
             flexDirection: "row",
             justifyContent: "flex-end",
           }}
-        >{!token ? (<div>Please Login</div>) : (
-          <SearchForm
-            setSearchKey={handleSearch}
-            searchArtists={searchArtists}
-          ></SearchForm>
-        )}
+        >
+          {!token ? (
+            <div>Please Login</div>
+          ) : (
+            <SearchForm
+              setSearchKey={handleSearch}
+              searchArtists={searchArtists}
+            ></SearchForm>
+          )}
           <LoginLogout
             token={token}
             CLIENT_ID={CLIENT_ID}

@@ -7,6 +7,8 @@ import Grid from "@mui/material/Grid";
 interface Artist {
   id: string;
   name: string;
+  popularity: string;
+  genres: Array<string>;
   images: { url: string }[];
 }
 
@@ -30,6 +32,20 @@ const RenderArtists = ({ artists }: renderArtistProps) => {
             ></CardMedia>
             <CardContent>
               <Typography>{artist.name}</Typography>
+            </CardContent>
+            <CardContent>
+              <Typography>Popularity: {artist.popularity}</Typography>
+            </CardContent>
+            <CardContent
+              sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+            >
+              {artist.genres.map((genre, index) => (
+                <Typography key={index} sx={{}}>
+                  {genre}
+                  {(index+1) !== (artist.genres.length) && ","}
+                  &nbsp;
+                </Typography>
+              ))}
             </CardContent>
           </Card>
         </Grid>
