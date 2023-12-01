@@ -84,21 +84,6 @@ function App() {
     window.localStorage.removeItem("token");
   };
 
-  const searchArtists = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { data } = await axios.get("https://api.spotify.com/v1/search", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        q: searchKey,
-        type: "artist",
-      },
-    });
-    console.log(data);
-    setArtists(data.artists.items);
-  };
-
   return (
     <>
       <div className="App">
@@ -108,8 +93,8 @@ function App() {
             position="static"
             color="secondary"
             sx={{
-            backgroundColor: "#4CAF50",
-          }}
+              backgroundColor: "#4CAF50",
+            }}
           >
             <Toolbar>
               <Typography
@@ -123,10 +108,7 @@ function App() {
               {!token ? (
                 <Typography>Please Login</Typography>
               ) : (
-                <SearchForm
-                  setSearchKey={handleSearch}
-                  searchArtists={searchArtists}
-                ></SearchForm>
+                <SearchForm setSearchKey={handleSearch}></SearchForm>
               )}
               <LoginLogout
                 token={token}
