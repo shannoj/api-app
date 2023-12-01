@@ -1,8 +1,7 @@
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent } from "react";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
-import { Input } from "@mui/material";
 
 interface SearchFormProps {
   setSearchKey: (

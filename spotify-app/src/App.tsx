@@ -7,7 +7,7 @@ import AppBar from "@mui/material/AppBar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
-import { Toolbar, Typography } from "@mui/material";
+import { Button, Toolbar, Typography } from "@mui/material";
 
 interface Artist {
   // Define the structure of the artist object based on the Spotify API response
@@ -106,18 +106,18 @@ function App() {
                 Search Spotify Artists App
               </Typography>
               {!token ? (
-                <Typography>Please Login</Typography>
+                <Button
+                  variant="contained"
+                  href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+                >
+                  Login
+                </Button>
               ) : (
-                <SearchForm setSearchKey={handleSearch}></SearchForm>
+                <>
+                  <SearchForm setSearchKey={handleSearch}></SearchForm>
+                  <LoginLogout logout={logout}></LoginLogout>
+                </>
               )}
-              <LoginLogout
-                token={token}
-                CLIENT_ID={CLIENT_ID}
-                AUTH_ENDPOINT={AUTH_ENDPOINT}
-                REDIRECT_URI={REDIRECT_URI}
-                RESPONSE_TYPE={RESPONSE_TYPE}
-                logout={logout}
-              ></LoginLogout>
             </Toolbar>
           </AppBar>
         </Box>
