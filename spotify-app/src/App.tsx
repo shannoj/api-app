@@ -5,6 +5,14 @@ import SearchForm from "./components/SearchForm";
 import LoginLogout from "./components/LoginLogout";
 import AppBar from "@mui/material/AppBar";
 
+interface Artist {
+  // Define the structure of the artist object based on the Spotify API response
+  // For example:
+  id: string;
+  name: string;
+  // ... other properties
+}
+
 function App() {
   const CLIENT_ID = "df46d308b60c4450b79230ccbba9d779";
   const REDIRECT_URI = "http://localhost:5173/";
@@ -38,7 +46,8 @@ function App() {
   const handleSearch = async (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setSearchKey(e.target.value);
+    let search = e.target.value;
+    setSearchKey(search);
     const { data } = await axios.get("https://api.spotify.com/v1/search", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -48,7 +57,13 @@ function App() {
         type: "artist",
       },
     });
-    setArtists(data.artists.items);
+    console.log(data.artists.items);
+
+    const filteredResults = data.artists.items.filter((result: Artist) =>
+      result.name.startsWith(search)
+    );
+
+    setArtists(filteredResults);
   };
 
   const logout = () => {
